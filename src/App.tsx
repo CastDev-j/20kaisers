@@ -1,4 +1,5 @@
 import image from "/test.webp";
+import uniqueImage from "/unique.webp";
 import { useEffect, useState } from "react";
 
 function App() {
@@ -12,8 +13,8 @@ function App() {
       const imgHeight = imageSize;
       const screenWidth = window.innerWidth;
       const screenHeight = window.innerHeight;
-      const cols = Math.ceil(screenWidth / imgWidth);
-      const rows = Math.ceil(screenHeight / imgHeight);
+      const cols = Math.floor(screenWidth / imgWidth);
+      const rows = Math.floor(screenHeight / imgHeight);
       return cols * rows;
     }
 
@@ -37,14 +38,23 @@ function App() {
         overflow: "hidden",
       }}
     >
-      {Array.from({ length: imagesCount }).map((_, i) => (
-        <img
-          key={i}
-          src={image}
-          alt="Test"
-          style={{ width: imageSize, height: imageSize, objectFit: "cover" }}
-        />
-      ))}
+      {Array.from({ length: imagesCount }).map((_, i) =>
+        i === 0 ? (
+          <img
+            key={i}
+            src={uniqueImage}
+            alt="Unique"
+            style={{ width: imageSize, height: imageSize, objectFit: "cover" }}
+          />
+        ) : (
+          <img
+            key={i}
+            src={image}
+            alt="Test"
+            style={{ width: imageSize, height: imageSize, objectFit: "cover" }}
+          />
+        )
+      )}
     </div>
   );
 }
