@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 function App() {
   const [imagesCount, setImagesCount] = useState(0);
 
-  const imageSize = 50;
+  const imageSize = 25;
 
   useEffect(() => {
     function calculateImagesCount() {
