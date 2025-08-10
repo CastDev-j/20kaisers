@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [imagesCount, setImagesCount] = useState(0);
+  const [uniqueIndex, setUniqueIndex] = useState(0);
 
   const imageSize = 25;
 
@@ -18,15 +19,19 @@ function App() {
       return cols * rows;
     }
 
-    setImagesCount(calculateImagesCount());
+    const count = calculateImagesCount();
+    setImagesCount(count);
+    setUniqueIndex(Math.floor(Math.random() * count));
 
     function handleResize() {
-      setImagesCount(calculateImagesCount());
+      const newCount = calculateImagesCount();
+      setImagesCount(newCount);
+      setUniqueIndex(Math.floor(Math.random() * newCount));
     }
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [imageSize]);
 
   return (
     <div
@@ -39,7 +44,7 @@ function App() {
       }}
     >
       {Array.from({ length: imagesCount }).map((_, i) =>
-        i === 0 ? (
+        i === uniqueIndex ? (
           <img
             key={i}
             src={uniqueImage}
