@@ -49,8 +49,8 @@ function App() {
       style={{
         display: "grid",
         gridTemplateColumns: `repeat(auto-fill, ${imageSize}px)`,
-        width: "100vw",
-        height: "100vh",
+        width: "100dvw",
+        height: "100dvh",
         overflow: "hidden",
       }}
     >
