@@ -5,13 +5,22 @@ import { useEffect, useState } from "react";
 function App() {
   const [imagesCount, setImagesCount] = useState(0);
   const [uniqueIndex, setUniqueIndex] = useState(0);
-
-  const imageSize = 25;
+  const [imageSize, setImageSize] = useState<number | null>(null);
 
   useEffect(() => {
+    if (imageSize === null) {
+      const input = window.prompt(
+        "Tamaño de las imágenes, mientras más grande menos imágenes habrá",
+        "25"
+      );
+      const size = Number(input);
+      setImageSize(size > 0 ? size : 25);
+      return;
+    }
+
     function calculateImagesCount() {
-      const imgWidth = imageSize;
-      const imgHeight = imageSize;
+      const imgWidth = imageSize!;
+      const imgHeight = imageSize!;
       const screenWidth = window.innerWidth;
       const screenHeight = window.innerHeight;
       const cols = Math.floor(screenWidth / imgWidth);
@@ -32,6 +41,8 @@ function App() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [imageSize]);
+
+  if (imageSize === null) return null;
 
   return (
     <div
